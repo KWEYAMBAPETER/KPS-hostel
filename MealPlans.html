@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meal Plans - KPS Hostel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Same CSS as previous pages */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #2c5530;
+            --secondary: #739e82;
+            --accent: #d4af37;
+            --light: #f8f9fa;
+            --dark: #212529;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            font-size: 2rem;
+            color: var(--accent);
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 0.5rem 0;
+            position: relative;
+        }
+
+        nav ul li a:hover {
+            color: var(--accent);
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: width 0.3s;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 6rem 0;
+            text-align: center;
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: var(--dark);
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #c19d27;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-secondary {
+            background-color: var(--primary);
+            color: white;
+            margin-left: 1rem;
+        }
+
+        .btn-secondary:hover {
+            background-color: #1e3d24;
+        }
+
+        .section {
+            padding: 5rem 0;
+        }
+
+        .service-detail {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 3rem;
+        }
+
+        .service-detail-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .service-detail-header h2 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .service-detail-header p {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .service-detail-content {
+            padding: 2rem;
+        }
+
+        .service-detail-content h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 0.5rem;
+        }
+
+        .service-detail-content p {
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .benefit-card {
+            background-color: var(--light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .benefit-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .benefit-card h4 {
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .pricing-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .pricing-table th, .pricing-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .pricing-table th {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .pricing-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .price-highlight {
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .service-features {
+            margin: 2rem 0;
+        }
+
+        .service-features ul {
+            list-style-type: none;
+            padding-left: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+
+        .service-features li {
+            margin-bottom: 0.8rem;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .service-features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .service-cta {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2.5rem;
+            background: linear-gradient(135deg, var(--primary), #1e3d24);
+            color: white;
+            border-radius: 8px;
+        }
+
+        .service-cta h3 {
+            color: white;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .service-cta p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .menu-sample {
+            background-color: var(--light);
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .menu-sample h4 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .menu-day {
+            margin-bottom: 1.5rem;
+        }
+
+        .menu-day h5 {
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 0.5rem;
+        }
+
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--accent);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #ddd;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu {
+                display: block;
+            }
+            
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--primary);
+                flex-direction: column;
+                padding: 1rem 0;
+                text-align: center;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+            
+            nav ul.active {
+                display: flex;
+            }
+            
+            nav ul li {
+                margin: 0.5rem 0;
+            }
+            
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+            
+            .btn-secondary {
+                margin-left: 0;
+                margin-top: 1rem;
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-home"></i>
+                <h1>KPS <span>HOSTEL</span></h1>
+            </div>
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Our Services</a></li>
+                    <li><a href="rooms.html">Rooms</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h2>Meal Plans</h2>
+            <p>Nutritious, delicious meals prepared daily by our experienced kitchen staff to fuel your success.</p>
+            <a href="#meal-details" class="btn">View Plans</a>
+        </div>
+    </section>
+
+    <!-- Service Details -->
+    <section class="section" id="meal-details">
+        <div class="container">
+            <div class="service-detail">
+                <div class="service-detail-header">
+                    <h2>Healthy & Delicious Dining</h2>
+                    <p>Balanced nutrition to support your academic and personal goals</p>
+                </div>
+                <div class="service-detail-content">
+                    <h3>About Our Meal Plans</h3>
+                    <p>At KPS Hostel, we believe that good nutrition is essential for academic success and overall well-being. Our meal plans are carefully designed by nutrition experts to provide balanced, delicious meals that fuel your body and mind. We use fresh, locally-sourced ingredients to create diverse menus that cater to various dietary preferences and requirements.</p>
+                    
+                    <p>Our experienced kitchen staff prepares meals daily in our hygienic, modern kitchen facilities. We focus on creating dishes that are not only nutritious but also flavorful and satisfying, making mealtime something to look forward to after a long day of studies or work.</p>
+                    
+                    <div class="benefits-grid">
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <i class="fas fa-apple-alt"></i>
+                            </div>
+                            <h4>Balanced Nutrition</h4>
+                            <p>Meals designed by nutrition experts to support health and academic performance</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <i class="fas fa-leaf"></i>
+                            </div>
+                            <h4>Fresh Ingredients</h4>
+                            <p>Locally sourced, fresh ingredients used in all our meal preparations</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <i class="fas fa-utensils"></i>
+                            </div>
+                            <h4>Varied Menu</h4>
+                            <p>Weekly rotating menu with diverse options to prevent meal fatigue</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <h4>Dietary Accommodations</h4>
+                            <p>Options available for vegetarian, vegan, and other dietary requirements</p>
+                        </div>
+                    </div>
+
+                    <h3>Meal Plan Options & Pricing</h3>
+                    <p>Choose from our flexible meal plan options designed to suit different needs and budgets. All plans include access to our dining facilities during serving hours.</p>
+                    
+                    <table class="pricing-table">
+                        <thead>
+                            <tr>
+                                <th>Plan Type</th>
+                                <th>Meals Included</th>
+                                <th>Price (Monthly)</th>
+                                <th>Best For</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Basic Plan</strong></td>
+                                <td>Breakfast only</td>
+                                <td class="price-highlight">$80</td>
+                                <td>Light eaters, those who lunch on campus</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Standard Plan</strong></td>
+                                <td>Breakfast & Dinner</td>
+                                <td class="price-highlight">$150</td>
+                                <td>Most students, balanced nutrition</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Premium Plan</strong></td>
+                                <td>Breakfast, Lunch & Dinner</td>
+                                <td class="price-highlight">$220</td>
+                                <td>Heavy schedules, athletes, comprehensive coverage</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Weekday Plan</strong></td>
+                                <td>Mon-Fri: Breakfast & Dinner</td>
+                                <td class="price-highlight">$120</td>
+                                <td>Students who go home on weekends</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Sample Weekly Menu</h3>
+                    <div class="menu-sample">
+                        <h4>Typical Week Menu (Rotates Seasonally)</h4>
+                        
+                        <div class="menu-day">
+                            <h5>Monday</h5>
+                            <p><strong>Breakfast:</strong> Scrambled eggs, toast, fresh fruit, cereal options</p>
+                            <p><strong>Lunch:</strong> Chicken stir-fry with rice, vegetable soup</p>
+                            <p><strong>Dinner:</strong> Beef stew with ugali, sukuma wiki, fruit dessert</p>
+                        </div>
+                        
+                        <div class="menu-day">
+                            <h5>Tuesday</h5>
+                            <p><strong>Breakfast:</strong> Pancakes with syrup, sausage, yogurt</p>
+                            <p><strong>Lunch:</strong> Vegetable curry with chapati, salad</p>
+                            <p><strong>Dinner:</strong> Grilled fish, rice pilau, kachumbari</p>
+                        </div>
+                        
+                        <div class="menu-day">
+                            <h5>Wednesday</h5>
+                            <p><strong>Breakfast:</strong> French toast, baked beans, fresh juice</p>
+                            <p><strong>Lunch:</strong> Spaghetti bolognese, garlic bread</p>
+                            <p><strong>Dinner:</strong> Traditional nyama choma with ugali and vegetables</p>
+                        </div>
+                    </div>
+
+                    <h3>Special Dietary Options</h3>
+                    <p>We accommodate various dietary needs and preferences:</p>
+                    <div class="service-features">
+                        <ul>
+                            <li><strong>Vegetarian:</strong> Plant-based proteins, dairy options available</li>
+                            <li><strong>Vegan:</strong> Completely plant-based meals upon request</li>
+                            <li><strong>Gluten-Free:</strong> Special preparation for gluten sensitivities</li>
+                            <li><strong>Halal:</strong> Halal-certified meat and preparation methods</li>
+                            <li><strong>Low-Carb:</strong> Reduced carbohydrate options for fitness goals</li>
+                            <li><strong>Allergy Accommodations:</strong> Notify us of any food allergies</li>
+                        </ul>
+                    </div>
+
+                    <h3>Dining Facilities & Hours</h3>
+                    <p>Our modern dining hall provides a comfortable environment for enjoying meals and socializing with fellow residents:</p>
+                    <div class="service-features">
+                        <ul>
+                            <li><strong>Breakfast:</strong> 7:00 AM - 9:30 AM</li>
+                            <li><strong>Lunch:</strong> 12:00 PM - 2:00 PM</li>
+                            <li><strong>Dinner:</strong> 6:00 PM - 8:30 PM</li>
+                            <li>Weekend brunch: 9:00 AM - 11:30 AM (Saturdays & Sundays)</li>
+                            <li>Snack bar available during non-meal hours</li>
+                            <li>Outdoor dining area for pleasant weather</li>
+                        </ul>
+                    </div>
+
+                    <div class="service-cta">
+                        <h3>Choose Your Meal Plan Today</h3>
+                        <p>Contact us to discuss your dietary needs, view our current menu, or sign up for a meal plan that works for you.</p>
+                        <a href="contact.html" class="btn">Contact Us</a>
+                        <a href="tel:+255123456789" class="btn btn-secondary">Call Now: +255 123 456 789</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>KPS Hostel</h3>
+                    <p>Your home away from home in Kamalas Dar-es. We provide comfortable, safe, and affordable accommodation for students and travelers.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="services.html">Our Services</a></li>
+                        <li><a href="rooms.html">Rooms</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Our Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="student-accommodation.html">Student Accommodation</a></li>
+                        <li><a href="short-term-stays.html">Short-term Stays</a></li>
+                        <li><a href="meal-plans.html">Meal Plans</a></li>
+                        <li><a href="laundry-services.html">Laundry Services</a></li>
+                        <li><a href="study-areas.html">Study Areas</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 University Ave, Kamalas Dar-es</li>
+                        <li><i class="fas fa-phone"></i> +255 123 456 789</li>
+                        <li><i class="fas fa-envelope"></i> info@kpshostel.com</li>
+                        <li><i class="fas fa-clock"></i> Office Hours: 8AM-8PM</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 KPS Hostel. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            document.querySelector('nav ul').classList.toggle('active');
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    document.querySelector('nav ul').classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

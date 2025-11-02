@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Areas - KPS Hostel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Same CSS as previous pages */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #2c5530;
+            --secondary: #739e82;
+            --accent: #d4af37;
+            --light: #f8f9fa;
+            --dark: #212529;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            font-size: 2rem;
+            color: var(--accent);
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 0.5rem 0;
+            position: relative;
+        }
+
+        nav ul li a:hover {
+            color: var(--accent);
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: width 0.3s;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1495465798138-718f86d1a4bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 6rem 0;
+            text-align: center;
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: var(--dark);
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #c19d27;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-secondary {
+            background-color: var(--primary);
+            color: white;
+            margin-left: 1rem;
+        }
+
+        .btn-secondary:hover {
+            background-color: #1e3d24;
+        }
+
+        .section {
+            padding: 5rem 0;
+        }
+
+        .service-detail {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 3rem;
+        }
+
+        .service-detail-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .service-detail-header h2 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .service-detail-header p {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .service-detail-content {
+            padding: 2rem;
+        }
+
+        .service-detail-content h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 0.5rem;
+        }
+
+        .service-detail-content p {
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .benefit-card {
+            background-color: var(--light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .benefit-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .benefit-card h4 {
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .study-areas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .area-card {
+            background: var(--light);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .area-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .area-card h4 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            text-align: center;
+        }
+
+        .area-features {
+            margin-top: 1rem;
+        }
+
+        .area-features ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .area-features li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .area-features li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .service-features {
+            margin: 2rem 0;
+        }
+
+        .service-features ul {
+            list-style-type: none;
+            padding-left: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+
+        .service-features li {
+            margin-bottom: 0.8rem;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .service-features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .service-cta {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2.5rem;
+            background: linear-gradient(135deg, var(--primary), #1e3d24);
+            color: white;
+            border-radius: 8px;
+        }
+
+        .service-cta h3 {
+            color: white;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .service-cta p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .hours-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .hours-table th, .hours-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .hours-table th {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .hours-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--accent);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #ddd;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu {
+                display: block;
+            }
+            
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--primary);
+                flex-direction: column;
+                padding: 1rem 0;
+                text-align: center;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+            
+            nav ul.active {
+                display: flex;
+            }
+            
+            nav ul li {
+                margin: 0.5rem 0;
+            }
+            
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+            
+            .btn-secondary {
+                margin-left: 0;
+                margin-top: 1rem;
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-home"></i>
+                <h1>KPS <span>HOSTEL</span></h1>
+            </div>
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Our Services</a></li>
+                    <li><a href="rooms.html">Rooms</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h2>Study Areas</h2>
+            <p>Dedicated, quiet spaces designed for focused studying and academic excellence.</p>
+            <a href="#study-details" class="btn">Explore Facilities</a>
+        </div>
+    </section>
+
+    <!-- Service Details -->
+    <section class="section" id="study-details">
+        <div class="container">
+            <div class="service-detail">
+                <div class="service-detail-header">
+                    <h2>Academic Excellence Spaces</h2>
+                    <p>Optimized environments for concentration, collaboration, and success</p>
+                </div>
+                <div class="service-detail-content">
+                    <h3>About Our Study Areas</h3>
+                    <p>At KPS Hostel, we recognize that academic success requires proper study environments. Our dedicated study areas are specifically designed to support different learning styles and study needs. Whether you prefer complete silence for intense focus or collaborative spaces for group projects, we have facilities that will help you achieve your academic goals.</p>
+                    
+                    <p>All our study areas are equipped with comfortable furniture, ample lighting, and high-speed internet access. We maintain these spaces to ensure they remain clean, quiet, and conducive to learning throughout the academic year.</p>
+                    
+                    <div class="benefits-grid">
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <i class="fas fa-volume-mute"></i>
+                            </div>
+                            <h4>Quiet Zones</h4>
+                            <p>Designated silent areas for deep concentration and focused study sessions</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <i class="fas fa-wifi"></i>
+                            </div>
+                            <h4>High-Speed Internet</h4>
+                            <p>Reliable, fast WiFi for research, online classes, and academic resources</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h4>Collaborative Spaces</h4>
+                            <p>Group study rooms for project work and peer learning sessions</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <h4>Extended Hours</h4>
+                            <p>24/7 access during exam periods and extended hours for night owls</p>
+                        </div>
+                    </div>
+
+                    <h3>Study Area Options</h3>
+                    <p>We offer various types of study environments to suit different preferences and study needs:</p>
+                    
+                    <div class="study-areas-grid">
+                        <div class="area-card">
+                            <div class="benefit-icon">
+                                <i class="fas fa-shush"></i>
+                            </div>
+                            <h4>Silent Study Hall</h4>
+                            <p>Absolute quiet environment for intense focus and concentration</p>
+                            <div class="area-features">
+                                <ul>
+                                    <li>No talking or device sounds</li>
+                                    <li>Individual carrel desks</li>
+                                    <li>Soft lighting</li>
+                                    <li>Capacity: 40 students</li>
+                                    <li>24/7 during exams</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="area-card">
+                            <div class="benefit-icon">
+                                <i class="fas fa-desktop"></i>
+                            </div>
+                            <h4>Computer Lab</h4>
+                            <p>Equipped with computers and printing facilities</p>
+                            <div class="area-features">
+                                <ul>
+                                    <li>10 desktop computers</li>
+                                    <li>Printing and scanning</li>
+                                    <li>Software for academic work</li>
+                                    <li>Technical support available</li>
+                                    <li>Open: 7AM-11PM</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="area-card">
+                            <div class="benefit-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h4>Group Study Rooms</h4>
+                            <p>Collaborative spaces for project work and study groups</p>
+                            <div class="area-features">
+                                <ul>
+                                    <li>4 private rooms available</li>
+                                    <li>Whiteboards and markers</li>
+                                    <li>Large tables for groups</li>
+                                    <li>Bookable in advance</li>
+                                    <li>Open: 8AM-10PM</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="area-card">
+                            <div class="benefit-icon">
+                                <i class="fas fa-couch"></i>
+                            </div>
+                            <h4>Comfort Lounge</h4>
+                            <p>Relaxed environment for reading and light studying</p>
+                            <div class="area-features">
+                                <ul>
+                                    <li>Comfortable seating</li>
+                                    <li>Low background music</li>
+                                    <li>Coffee and snack area nearby</li>
+                                    <li>Casual study atmosphere</li>
+                                    <li>Open: 6AM-Midnight</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3>Operating Hours</h3>
+                    <p>Our study areas have different operating hours to accommodate various schedules:</p>
+                    
+                    <table class="hours-table">
+                        <thead>
+                            <tr>
+                                <th>Study Area</th>
+                                <th>Regular Hours</th>
+                                <th>Exam Period Hours</th>
+                                <th>Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Silent Study Hall</strong></td>
+                                <td>7:00 AM - 11:00 PM</td>
+                                <td>24/7</td>
+                                <td>Extended during finals</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Computer Lab</strong></td>
+                                <td>7:00 AM - 11:00 PM</td>
+                                <td>7:00 AM - 2:00 AM</td>
+                                <td>Staffed until 9PM</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Group Study Rooms</strong></td>
+                                <td>8:00 AM - 10:00 PM</td>
+                                <td>8:00 AM - Midnight</td>
+                                <td>Booking required</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Comfort Lounge</strong></td>
+                                <td>6:00 AM - Midnight</td>
+                                <td>24/7</td>
+                                <td>Informal setting</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Outdoor Study Area</strong></td>
+                                <td>7:00 AM - 9:00 PM</td>
+                                <td>7:00 AM - 11:00 PM</td>
+                                <td>Weather permitting</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Study Area Features & Amenities</h3>
+                    <div class="service-features">
+                        <ul>
+                            <li><strong>High-Speed WiFi:</strong> Reliable internet throughout all study areas</li>
+                            <li><strong>Power Outlets:</strong> Ample charging stations for laptops and devices</li>
+                            <li><strong>Comfortable Seating:</strong> Ergonomic chairs and varied seating options</li>
+                            <li><strong>Adequate Lighting:</strong> Natural and artificial lighting optimized for reading</li>
+                            <li><strong>Climate Control:</strong> Air conditioning and heating for comfort</li>
+                            <li><strong>Printing Services:</strong> Affordable printing available in computer lab</li>
+                            <li><strong>Whiteboards:</strong> Available in group study rooms for collaboration</li>
+                            <li><strong>Study Resources:</strong> Reference books and academic journals</li>
+                            <li><strong>Snack Area:</strong> Designated area for light refreshments</li>
+                            <li><strong>Security:</strong> CCTV monitoring and secure access</li>
+                        </ul>
+                    </div>
+
+                    <h3>Booking & Usage Guidelines</h3>
+                    <p>To ensure fair access and maintain the quality of our study environments, we have established these guidelines:</p>
+                    <div class="service-features">
+                        <ul>
+                            <li>Group study rooms can be booked up to one week in advance</li>
+                            <li>Maximum booking duration: 3 hours per session</li>
+                            <li>Silent study areas require complete quiet - no conversations</li>
+                            <li>Personal belongings should not be left unattended</li>
+                            <li>Food is only permitted in designated snack areas</li>
+                            <li>Respect other students' need for quiet and concentration</li>
+                            <li>Report any maintenance issues to hostel staff immediately</li>
+                        </ul>
+                    </div>
+
+                    <div class="service-cta">
+                        <h3>Access Our Study Facilities Today</h3>
+                        <p>All study areas are available to KPS Hostel residents at no additional cost. Visit our reception to learn more about booking procedures and current availability.</p>
+                        <a href="contact.html" class="btn">Contact Us</a>
+                        <a href="tel:+255123456789" class="btn btn-secondary">Call Now: +255 123 456 789</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>KPS Hostel</h3>
+                    <p>Your home away from home in Kamalas Dar-es. We provide comfortable, safe, and affordable accommodation for students and travelers.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="services.html">Our Services</a></li>
+                        <li><a href="rooms.html">Rooms</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Our Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="student-accommodation.html">Student Accommodation</a></li>
+                        <li><a href="short-term-stays.html">Short-term Stays</a></li>
+                        <li><a href="meal-plans.html">Meal Plans</a></li>
+                        <li><a href="laundry-services.html">Laundry Services</a></li>
+                        <li><a href="study-areas.html">Study Areas</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 University Ave, Kamalas Dar-es</li>
+                        <li><i class="fas fa-phone"></i> +255 123 456 789</li>
+                        <li><i class="fas fa-envelope"></i> info@kpshostel.com</li>
+                        <li><i class="fas fa-clock"></i> Office Hours: 8AM-8PM</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 KPS Hostel. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            document.querySelector('nav ul').classList.toggle('active');
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    document.querySelector('nav ul').classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
